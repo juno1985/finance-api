@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+	<classPathEntry location="mysql-connector-java-5.1.43.jar" />
+	
+	<context id="ForCommonTables" targetRuntime="MyBatis3">
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://localhost:3306/xyy_fin?useSSL=false"
+			userId="root" password="123456">
+		</jdbcConnection>
+
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+
+		<javaModelGenerator targetPackage="xyy.fin.model"
+			targetProject="./common/src">
+			<property name="enableSubPackages" value="false" />
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator>
+
+		<sqlMapGenerator targetPackage="xyy.fin.mapper.resources"
+			targetProject="./common/src">
+			<property name="enableSubPackages" value="false" />
+		</sqlMapGenerator>
+
+		<javaClientGenerator type="XMLMAPPER"
+			targetPackage="xyy.fin.mapper" targetProject="./common/src">
+			<property name="enableSubPackages" value="false" />
+		</javaClientGenerator>
+
+		<table schema="" tableName="fin_items" domainObjectName="FinItemModel">
+			<property name="useActualColumnNames" value="false"></property>
+			<generatedKey column="id" sqlStatement="JDBC"
+				identity="true"></generatedKey>
+		</table>
+
+		<table schema="" tableName="fin_chg_hist" domainObjectName="FinChgHistModel">
+			<property name="useActualColumnNames" value="false" />
+			<generatedKey column="id" sqlStatement="JDBC"
+				identity="true" />
+		</table>
+
+	
+	</context>
+</generatorConfiguration>
