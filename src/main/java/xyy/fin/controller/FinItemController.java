@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import xyy.fin.model.FinItemModel;
+import xyy.fin.model.ext.ItemsWrappedModel;
 import xyy.fin.service.FinItemService;
 
 @RestController
@@ -23,8 +24,11 @@ public class FinItemController {
 		return new ResponseEntity<>(finItemModel,HttpStatus.OK);
 	}
 	
-/*	@RequestMapping(value = { "/test" }, method = { RequestMethod.GET })
-	public ResponseEntity<FinItemModel> test(FinItemModel finItemModel){
-		return new ResponseEntity<>(finItemModel,HttpStatus.OK);
-	}*/
+	@RequestMapping(value = { "/getInputFlow" }, method = { RequestMethod.GET })
+	public ResponseEntity<ItemsWrappedModel> getInputDataFlow(){
+		ItemsWrappedModel<FinItemModel,FinItemModel> itemWrapped = finItemService.getInputDataFlow();
+		return new ResponseEntity<>(itemWrapped,HttpStatus.OK);
+	}
+	
+
 }
