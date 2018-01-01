@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import xyy.fin.model.FinItemModel;
+import xyy.fin.model.ext.AjaxModel;
 import xyy.fin.model.ext.InputPostModel;
 import xyy.fin.model.ext.ItemsWrappedModel;
 import xyy.fin.service.FinItemService;
@@ -33,11 +34,13 @@ public class FinItemController {
 	}
 	
 	@RequestMapping(value = {"/postInputFlow"}, method = {RequestMethod.POST})
-	public ResponseEntity receiveInputFlow(@RequestBody InputPostModel inputPostModel){
+	public ResponseEntity<AjaxModel> receiveInputFlow(@RequestBody InputPostModel inputPostModel){
 		
 		System.out.println(inputPostModel);
 		
-		return new ResponseEntity(HttpStatus.OK);
+		AjaxModel am = new AjaxModel(0,"收入流添加成功!");
+		
+		return new ResponseEntity<>(am,HttpStatus.OK);
 	}
 
 }
