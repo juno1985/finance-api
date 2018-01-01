@@ -1,15 +1,15 @@
 package xyy.fin.service;
 
+import java.util.Date;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
-
 import xyy.fin.enums.ItemType;
 import xyy.fin.mapper.FinChgHistModelMapper;
 import xyy.fin.mapper.FinItemModelMapper;
+import xyy.fin.model.FinChgHistModel;
 import xyy.fin.model.FinItemModel;
 import xyy.fin.model.FinItemModelExample;
 import xyy.fin.model.ext.InputPostModel;
@@ -50,9 +50,26 @@ public class FinItemService {
 		return itemList;
 	}
 	
+	//处理财务收入的表单提交
+	public void saveInputFlow(InputPostModel inputPostModel){
+		//增加收入到目的账户
+		FinItemModel finItem = finItemModelMapper.selectByPrimaryKey(inputPostModel.getToItem());
+		finItem.setItemBalance(finItem.getItemBalance()+inputPostModel.getTranAccount());
+		finItemModelMapper.updateByPrimaryKeySelective(finItem);
+		//添加收入流历史
+		addInputFlowHist(inputPostModel);
+		
+	}
+	
 	//添加收入流历史
 	public void addInputFlowHist(InputPostModel inputPostModel){
-		
+		FinChgHistModel chgHistItem = new FinChgHistModel();
+		chgHistItem.setFromId(inputPostModel.getFromItem());
+		chgHistItem.setToId(inputPostModel.getToItem());
+		chgHistItem.setChgAmmount(inputPostModel.getTranAccount());
+		chgHistItem.setChgComment(inputPostModel.getShortComment());
+		chgHistItem.setChgTime(new Date());
+		finChgHistModelMapper.insert(chgHistItem);
 	}
 	
 

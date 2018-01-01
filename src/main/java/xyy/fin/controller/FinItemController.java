@@ -20,23 +20,23 @@ public class FinItemController {
 	@Autowired
 	private FinItemService finItemService;
 	
-	
+	//增加fin_items数据
 	@RequestMapping(value = { "/finItemAdd" }, method = { RequestMethod.POST })
 	public ResponseEntity<FinItemModel> addFinItem(FinItemModel finItemModel){
 		finItemService.addFinItem(finItemModel);
 		return new ResponseEntity<>(finItemModel,HttpStatus.OK);
 	}
-	
+	//生成财务收入的收入来源和目的啊账户
 	@RequestMapping(value = { "/getInputFlow" }, method = { RequestMethod.GET })
 	public ResponseEntity<ItemsWrappedModel> getInputDataFlow(){
 		ItemsWrappedModel<FinItemModel,FinItemModel> itemWrapped = finItemService.getInputDataFlow();
 		return new ResponseEntity<>(itemWrapped,HttpStatus.OK);
 	}
-	
+	//处理财务收入的表单提交
 	@RequestMapping(value = {"/postInputFlow"}, method = {RequestMethod.POST})
 	public ResponseEntity<AjaxModel> receiveInputFlow(@RequestBody InputPostModel inputPostModel){
 		
-		System.out.println(inputPostModel);
+		finItemService.saveInputFlow(inputPostModel);
 		
 		AjaxModel am = new AjaxModel(0,"收入流添加成功!");
 		
