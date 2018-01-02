@@ -26,7 +26,7 @@ public class FinItemController {
 		finItemService.addFinItem(finItemModel);
 		return new ResponseEntity<>(finItemModel,HttpStatus.OK);
 	}
-	//生成财务收入的收入来源和目的啊账户
+	//生成财务收入的收入来源和目的账户
 	@RequestMapping(value = { "/getInputFlow" }, method = { RequestMethod.GET })
 	public ResponseEntity<ItemsWrappedModel> getInputDataFlow(){
 		ItemsWrappedModel<FinItemModel,FinItemModel> itemWrapped = finItemService.getInputDataFlow();
@@ -38,8 +38,24 @@ public class FinItemController {
 		
 		finItemService.saveInputFlow(inputPostModel);
 		
-		AjaxModel am = new AjaxModel(0,"收入流添加成功!");
+		AjaxModel am = new AjaxModel(0,"收入添加成功!");
 		
+		return new ResponseEntity<>(am,HttpStatus.OK);
+	}
+	//生成财务支出的支出账户和支出类别
+	@RequestMapping(value = { "/getOutputFlow" }, method = { RequestMethod.GET })
+	public ResponseEntity<ItemsWrappedModel> getOutputDataFlow(){
+		ItemsWrappedModel<FinItemModel,FinItemModel> itemWrapped = finItemService.getOutputDataFlow();
+		return new ResponseEntity<>(itemWrapped,HttpStatus.OK);
+	}
+	//处理财务收入的表单提交
+	@RequestMapping(value = {"/postOutputFlow"}, method = {RequestMethod.POST})
+	public ResponseEntity<AjaxModel> receiveOutputFlow(@RequestBody InputPostModel inputPostModel){
+			
+		finItemService.saveOutputFlow(inputPostModel);
+			
+		AjaxModel am = new AjaxModel(0,"支出添加成功!");
+			
 		return new ResponseEntity<>(am,HttpStatus.OK);
 	}
 

@@ -41,6 +41,15 @@ public class FinItemService {
 		return itemsWrapped;
 	}
 	
+	public ItemsWrappedModel<FinItemModel, FinItemModel> getOutputDataFlow(){
+		List<FinItemModel> fromList = getAllItems(ItemType.PROPERTY.getCode());
+		List<FinItemModel> toList = getAllItems(ItemType.OUTPUT.getCode());
+		
+		ItemsWrappedModel<FinItemModel, FinItemModel> itemsWrapped = new ItemsWrappedModel<>(fromList, toList);
+		
+		return itemsWrapped;
+	}
+	
 	//得到相应的项目, itemType=property/input/output
 	public List<FinItemModel> getAllItems(String itemType){
 		FinItemModelExample finExa = new FinItemModelExample();
@@ -70,6 +79,16 @@ public class FinItemService {
 		chgHistItem.setChgComment(inputPostModel.getShortComment());
 		chgHistItem.setChgTime(new Date());
 		finChgHistModelMapper.insert(chgHistItem);
+	}
+
+	public void saveOutputFlow(InputPostModel inputPostModel) {
+		//扣减支出账户
+		FinItemModel finItem = finItemModelMapper.selectByPrimaryKey(inputPostModel.getFromItem());
+		finItem.setItemBalance(finItem.getItemBalance()-inputPostModel.getTranAccount());
+		finItemModelMapper.updateByPrimaryKeySelective(finItem);
+		//添加收入流历史
+		addInputFlowHist(inputPostModel);
+		
 	}
 	
 
