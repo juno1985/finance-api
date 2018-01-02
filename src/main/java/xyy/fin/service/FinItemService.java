@@ -113,6 +113,14 @@ public class FinItemService {
 		addInputFlowHist(inputPostModel);
 		
 	}
+
+	public List<FinItemModel> getPropDatas() {
+		FinItemModelExample finExa = new FinItemModelExample();
+		FinItemModelExample.Criteria finCri = finExa.createCriteria();
+		finCri.andItemTypeEqualTo(ItemType.PROPERTY.getCode());
+		List<FinItemModel> propList = finItemModelMapper.selectByExample(finExa);
+		return propList;
+	}
 	
 
 }

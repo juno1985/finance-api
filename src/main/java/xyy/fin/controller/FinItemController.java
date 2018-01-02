@@ -1,5 +1,7 @@
 package xyy.fin.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -73,5 +75,13 @@ public class FinItemController {
 		AjaxModel am = new AjaxModel(0,"重组添加成功!");
 			
 		return new ResponseEntity<>(am,HttpStatus.OK);
+	}
+	
+	//资产情况表数据获取
+	@RequestMapping(value = { "/prodatas" }, method = { RequestMethod.GET})
+	public ResponseEntity<List<FinItemModel>> getPropDatas(){
+		List<FinItemModel> propsList = finItemService.getPropDatas();
+		
+		return new ResponseEntity<>(propsList, HttpStatus.OK);
 	}
 }
