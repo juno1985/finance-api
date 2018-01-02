@@ -90,6 +90,29 @@ public class FinItemService {
 		addInputFlowHist(inputPostModel);
 		
 	}
+
+	public ItemsWrappedModel<FinItemModel, FinItemModel> getPropReorgFlow() {
+		
+		List<FinItemModel> fromList = getAllItems(ItemType.PROPERTY.getCode());
+		//资产重组只有一个list
+		ItemsWrappedModel<FinItemModel, FinItemModel> itemsWrapped = new ItemsWrappedModel<>(fromList, null);
+		
+		return itemsWrapped;
+	}
+
+	public void savePropReorgFlow(InputPostModel inputPostModel) {
+		//扣减支出账户
+		FinItemModel sourceItem = finItemModelMapper.selectByPrimaryKey(inputPostModel.getFromItem());
+		sourceItem.setItemBalance(sourceItem.getItemBalance()-inputPostModel.getTranAccount());
+		finItemModelMapper.updateByPrimaryKeySelective(sourceItem);
+		
+		FinItemModel targetItem = finItemModelMapper.selectByPrimaryKey(inputPostModel.getToItem());
+		targetItem.setItemBalance(targetItem.getItemBalance()+inputPostModel.getTranAccount());
+		finItemModelMapper.updateByPrimaryKeySelective(targetItem);
+		//添加收入流历史
+		addInputFlowHist(inputPostModel);
+		
+	}
 	
 
 }

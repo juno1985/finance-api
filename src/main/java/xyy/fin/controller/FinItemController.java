@@ -58,5 +58,20 @@ public class FinItemController {
 			
 		return new ResponseEntity<>(am,HttpStatus.OK);
 	}
+	
+	@RequestMapping(value = { "/PropReorgFlow" }, method = { RequestMethod.GET })
+	public ResponseEntity<ItemsWrappedModel> getPropReorgFlow(){
+		ItemsWrappedModel<FinItemModel,FinItemModel> itemWrapped = finItemService.getPropReorgFlow();
+		return new ResponseEntity<>(itemWrapped,HttpStatus.OK);
+	}
 
+	@RequestMapping(value = {"/postPropReorgFlow"}, method = {RequestMethod.POST})
+	public ResponseEntity<AjaxModel> receivePropReorgFlow(@RequestBody InputPostModel inputPostModel){
+			
+		finItemService.savePropReorgFlow(inputPostModel);
+			
+		AjaxModel am = new AjaxModel(0,"重组添加成功!");
+			
+		return new ResponseEntity<>(am,HttpStatus.OK);
+	}
 }
