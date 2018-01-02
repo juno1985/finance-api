@@ -122,5 +122,12 @@ public class FinItemService {
 		return propList;
 	}
 	
+	public Long getPropTotal(){
+		Long result = new Long(0);
+		for(FinItemModel fin:getPropDatas()){
+			result += fin.getItemBalance();
+		}
+		return result;
+	}
 
 }

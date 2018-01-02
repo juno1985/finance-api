@@ -84,4 +84,9 @@ public class FinItemController {
 		
 		return new ResponseEntity<>(propsList, HttpStatus.OK);
 	}
+	
+	@RequestMapping(value={"/getTotal"},method={RequestMethod.GET})
+	public ResponseEntity<Long> getPropTotal(){
+		return new ResponseEntity<>(finItemService.getPropTotal(),HttpStatus.OK);
+	}
 }
