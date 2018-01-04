@@ -1,16 +1,21 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>xyy-finance-system</groupId>
-    <artifactId>finance-parent</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-  </parent>
+  
   <groupId>xyy-finance-system</groupId>
   <artifactId>finance-api</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+  <packaging>war</packaging>
+  
+  <parent>
+    <groupId>xyy-finance-system</groupId>
+  <artifactId>finance-parent</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <relativePath>../finance-parent</relativePath>
+  </parent>
+
   <properties>
 	    <!-- The main class to start by executing java -jar -->
-	    <start-class>xyy.fin.mgm.XyyFinMgmApi</start-class>
+	    <start-class>xyy.fin.FinApiApplication</start-class>
 	</properties>
 
 	<dependencies>
@@ -23,22 +28,16 @@
 	</dependencies>
 	
 	<build>
-		<finalName>${project.artifactId}</finalName>
+		<finalName>finance-api</finalName>
         <resources>
             <resource>
-                <directory>src/main/resources</directory>
-                <includes>
-                    <include>**/*.properties</include>
-                </includes>
-                <filtering>true</filtering>
+                <directory>src/main/resources-dev</directory>
+             	<includes>
+					<include>*.yml</include>
+				</includes>
+                <filtering>false</filtering>
             </resource>
-            <resource>
-                <directory>src/main/resources</directory>
-                <excludes>
-                    <exclude>**/*.properties</exclude>
-                </excludes>
-                <filtering>false</filtering>               
-            </resource>
+ 
 			<resource>
 				<directory>src/main/java</directory>
 				<includes>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xyy.fin.mapper.ext.FinChgExtMapper">
+ <resultMap id="BaseResultMap" type="xyy.fin.model.ext.ChgHistExtModel">
+   
+    <result column="fromname" jdbcType="VARCHAR" property="fromItem" />
+    <result column="toname" jdbcType="VARCHAR" property="toItem" />
+    <result column="chg_ammount" jdbcType="DECIMAL" property="chgAmmount" />
+    <result column="chg_comment" jdbcType="VARCHAR" property="chgComment" />
+    <result column="chg_time" jdbcType="TIMESTAMP" property="chgTime" />
+  </resultMap>
+  
+  <select id="selectChgHistData"  resultMap="BaseResultMap">
+   SELECT from_tbl.fromname,fin_items.item_name AS toname,
+	from_tbl.from_id,from_tbl.to_id,
+	from_tbl.chg_time,from_tbl.chg_ammount,from_tbl.chg_comment
+	FROM
+(SELECT  fin_items.item_name AS  fromname,
+	fin_chg_hist.from_id AS  from_id,
+	fin_chg_hist.to_id AS  to_id,
+	fin_chg_hist.chg_time AS chg_time,
+	fin_chg_hist.chg_ammount AS chg_ammount,
+	fin_chg_hist.chg_comment AS chg_comment
+FROM fin_chg_hist, fin_items
+WHERE fin_chg_hist.from_id=fin_items.id) 
+from_tbl, fin_items fin_items
+WHERE from_tbl.to_id=fin_items.id
+   ORDER BY chg_time
+  </select>
+  
+
+ 
+</mapper>

@@ -3,7 +3,7 @@ package xyy.fin.enums;
 public enum ItemType implements EnumType {
 
 	PROPERTY("property"),
-	INPUT("input"),
+	INPUT("income"),
 	OUTPUT("output");
 	
 	public final String code;
