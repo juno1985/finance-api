@@ -14,5 +14,17 @@
     SELECT DISTINCT DATE_FORMAT(snap_time,'%Y-%m-%d') FROM fin_monthly_snapshot
 
   </select>
+  
+  <select id="selectByMonth" parameterType="Map" resultType="xyy.fin.model.FinMonthlySnapModel">
+  	select id,snap_item,snap_time,snap_balance from fin_monthly_snapshot
+  		where DATE_FORMAT(snap_time,'%Y-%m')=#{month}
+  </select> 
+  
+  <select id="insertMonthlySnap" parameterType="Map">
+  INSERT INTO fin_monthly_snapshot(snap_item,snap_balance, snap_time)
+	SELECT item_name,item_balance,NOW()
+		FROM fin_items
+	WHERE item_type=#{prop}
+  </select>
  
 </mapper>

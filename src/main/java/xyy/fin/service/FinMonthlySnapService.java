@@ -32,6 +32,25 @@ public class FinMonthlySnapService {
 	@Autowired
 	private FinMonthlySnapModelMapper finMonthlySnapModelMapper;
 
+	public void insertMonthSnap(){
+		Map<String, String> prop = new HashMap<>();
+		prop.put("prop", "property");
+		finMonthlySnapModelMapperExt.insertMonthlySnap(prop);
+	}
+	
+	public Integer checkMonthSnapExist(){
+		Map<String, String> month = new HashMap<>();
+		//获取当前月份
+		Date curDate = new Date();
+		SimpleDateFormat formatter;
+		formatter = new SimpleDateFormat ("yyyy-MM");
+		month.put("month", formatter.format(curDate));
+		
+		List<FinMonthlySnapModel> snapList = finMonthlySnapModelMapperExt.selectByMonth(month);
+		
+		return snapList.size();
+	}
+	
 	public List<String> getDistinctItems(){
 		List<String> distinctItems = finMonthlySnapModelMapperExt.selectDistinctItem();
 		return distinctItems;

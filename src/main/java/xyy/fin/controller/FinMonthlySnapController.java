@@ -22,4 +22,9 @@ public class FinMonthlySnapController {
 //		finMonthlySnapService.getDistinctDate();
 		return new ResponseEntity<>(finMonthlySnapService.compSnapModel(),HttpStatus.OK);
 	}
+	
+//	@RequestMapping(value = { "/addMonthSnap" }, method = { RequestMethod.GET })
+//	public void insertMonthlySnap(){
+//		finMonthlySnapService.checkMonthSnapExist();
+//	}
 }
