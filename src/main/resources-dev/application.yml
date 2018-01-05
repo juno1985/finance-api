@@ -4,22 +4,17 @@ server:
 security.basic.enabled: false
 
 spring: 
-#    profiles:
-#        active: dev
-#    application.name: mm-platform-api
-#    jackson:  
-#        date-format: yyyy-MM-dd HH:mm:ss  
-#        time-zone: GMT+8 
-#    redis:
-#      host: localhost
-#      port: 6379
-#      password:
-#      pool:
-#        max-active: 8
-#        max-wait: -1
-#        max-idle: 8
-#        min-idle: 0
-#      timeout: 0
+    mail:  
+        host: smtp.qq.com
+        username: 390380730@qq.com
+        password: 
+        properties:
+          mail:
+            smtp:
+              auth: true
+              starttls: 
+                enable: true
+                required: true
       
     datasource:
       url: jdbc:mysql://localhost:3306/xyy_fin?useSSL=false&useUnicode=true&characterEncoding=UTF-8
@@ -56,3 +51,6 @@ logging:
     druid.sql: info
     com.nowbook.mm.platform: debug
     org.springframework.security: debug
+    
+    
+  

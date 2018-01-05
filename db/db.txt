@@ -1,0 +1,29 @@
+CREATE TABLE `fin_items` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `item_name` varchar(255) COLLATE utf8_bin NOT NULL,
+  `item_balance` decimal(10,0) DEFAULT '0' COMMENT 'item_type是prop才余额',
+  `item_type` varchar(255) COLLATE utf8_bin NOT NULL COMMENT 'prop/output/income',
+  PRIMARY KEY (`id`)
+)
+
+CREATE TABLE `fin_monthly_snapshot` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `snap_item` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '月度报表项',
+  `snap_time` datetime DEFAULT NULL,
+  `snap_balance` decimal(10,0) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+)
+
+CREATE TABLE `fin_chg_hist` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `from_id` int(11) NOT NULL,
+  `to_id` int(11) NOT NULL,
+  `chg_ammount` decimal(10,0) DEFAULT '0',
+  `chg_comment` varchar(255) COLLATE utf8_bin NOT NULL,
+  `chg_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_from_fin_items_id` (`from_id`),
+  KEY `fk_to_fin_items_id` (`to_id`),
+  CONSTRAINT `fk_from_fin_items_id` FOREIGN KEY (`from_id`) REFERENCES `fin_items` (`id`),
+  CONSTRAINT `fk_to_fin_items_id` FOREIGN KEY (`to_id`) REFERENCES `fin_items` (`id`)
+)

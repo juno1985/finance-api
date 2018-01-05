@@ -1,0 +1,6 @@
+JavaMail建立和SMTP服务器的SSL连接
+
+javac InstallCert.java
+java InstallCert smtp.qq.com:465
+ 在里面回车退出
+--拷贝jssecacerts 到 $JAVA_HOME/jre/lib/security
