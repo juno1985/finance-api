@@ -16,7 +16,7 @@ public class MailService {
 	@Value("${spring.mail.username}")
 	private String username;
 	
-    public void sendHtmlMail(String to, String subject, String content){  
+    public void sendHtmlMail(String[] to, String subject, String content){  
         MimeMessage message = sender.createMimeMessage();  
   
         try {  
