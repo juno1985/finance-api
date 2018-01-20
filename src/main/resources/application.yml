@@ -6,8 +6,8 @@ security.basic.enabled: false
 spring: 
     mail:  
         host: smtp.qq.com
-        username: 390380730@qq.com
-        password: vlrsylanqsvnbghj
+        username: 2064375491@qq.com
+        password: iqedxrievlyqbjci
         properties:
           mail:
             smtp:
