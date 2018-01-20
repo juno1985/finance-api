@@ -121,7 +121,7 @@ public class FinItemService {
 		List<FinItemModel> propList = finItemModelMapper.selectByExample(finExa);
 		return propList;
 	}
-	
+	//资产总数
 	public Long getPropTotal(){
 		Long result = new Long(0);
 		for(FinItemModel fin:getPropDatas()){
